@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логово Фютрубера</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .button {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 25px; /* Заокруглені краї */
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #333333;
+        }
+
+        .button:active {
+            background-color: #555555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Логово Фютрубера</h1>
+    <div class="button-container">
+        <button class="button" onclick="openFAQ()">FAQ</button>
+        <button class="button" onclick="orderDrawing()">Замовити малюнок</button>
+    </div>
+
+    <script>
+        function openFAQ() {
+            alert("Тут буде FAQ"); // Замініть на посилання або дію
+        }
+
+        function orderDrawing() {
+            alert("Тут буде форма для замовлення"); // Замініть на посилання або дію
+        }
+    </script>
+</body>
+</html>
