@@ -28,6 +28,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            margin-top: 20px;
         }
 
         .button {
@@ -49,16 +50,87 @@
         .button:active {
             background-color: #555555;
         }
+
+        .form-container {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .form-input {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+            max-width: 300px;
+        }
     </style>
 </head>
 <body>
     <h1>Логово Фютрубера</h1>
-    <div class="button-container">
+
+    <button id="register-button" class="button">Зареєструватися</button>
+
+    <div id="form-container" class="form-container">
+        <input id="name-input" class="form-input" type="text" placeholder="Ваше ім'я" required>
+        <input id="phone-input" class="form-input" type="tel" placeholder="Ваш телефон" required>
+        <input id="email-input" class="form-input" type="email" placeholder="Ваша пошта" required>
+        <button id="submit-button" class="button">Підтвердити реєстрацію</button>
+    </div>
+
+    <div id="button-container" class="button-container" style="display: none;">
         <button class="button" onclick="openFAQ()">FAQ</button>
-        <button class="button" onclick="orderDrawing()">Замовити малюнок</button>
+        <button class="button" onclick="orderDrawing()">Реєстрація для подальшого користування</button>
     </div>
 
     <script>
+        // Елементи
+        const registerButton = document.getElementById('register-button');
+        const formContainer = document.getElementById('form-container');
+        const buttonContainer = document.getElementById('button-container');
+        const submitButton = document.getElementById('submit-button');
+        const nameInput = document.getElementById('name-input');
+        const phoneInput = document.getElementById('phone-input');
+        const emailInput = document.getElementById('email-input');
+
+        // Перевірка реєстрації
+        function checkRegistration() {
+            const isRegistered = localStorage.getItem('isRegistered');
+            if (isRegistered) {
+                registerButton.style.display = 'none';
+                buttonContainer.style.display = 'flex';
+            }
+        }
+
+        // Показати форму реєстрації
+        registerButton.addEventListener('click', () => {
+            registerButton.style.display = 'none';
+            formContainer.style.display = 'flex';
+        });
+
+        // Підтвердити реєстрацію
+        submitButton.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const email = emailInput.value.trim();
+
+            if (!name || !phone || !email) {
+                alert('Будь ласка, заповніть всі поля!');
+                return;
+            }
+
+            // Зберегти дані користувача
+            localStorage.setItem('isRegistered', true);
+            localStorage.setItem('userData', JSON.stringify({ name, phone, email }));
+
+            // Показати кнопки
+            formContainer.style.display = 'none';
+            buttonContainer.style.display = 'flex';
+        });
+
+        // Дії кнопок
         function openFAQ() {
             alert("Тут буде FAQ"); // Замініть на посилання або дію
         }
@@ -66,6 +138,9 @@
         function orderDrawing() {
             alert("Тут буде форма для замовлення"); // Замініть на посилання або дію
         }
+
+        // Ініціалізація
+        checkRegistration();
     </script>
 </body>
 </html>
