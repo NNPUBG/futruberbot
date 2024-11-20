@@ -82,8 +82,7 @@
 
     <div id="button-container" class="button-container" style="display: none;">
         <button class="button" onclick="openFAQ()">FAQ</button>
-        <button class="button" onclick="orderDrawing()">Замовити малюнок</button>
-        <button id="re-register-button" class="button" style="display: none;" onclick="reRegister()">Зареєструватись заново</button>
+        <button class="button" onclick="orderDrawing()">Реєстрація для подальшого користування</button>
     </div>
 
    <script>
@@ -115,7 +114,6 @@
                 localStorage.setItem('userData', JSON.stringify({ name, phone, email }));
                 formContainer.style.display = 'none';
                 buttonContainer.style.display = 'flex';
-                reRegisterButton.style.display = 'inline-block';  // Показати кнопку для перереєстрації
             } else {
                 alert('Помилка реєстрації, спробуйте пізніше.');
             }
@@ -124,7 +122,6 @@
             alert('Не вдалося зв’язатися із сервером.');
         }
     });
-
     </script>
 
     <script>
@@ -136,7 +133,6 @@
         const nameInput = document.getElementById('name-input');
         const phoneInput = document.getElementById('phone-input');
         const emailInput = document.getElementById('email-input');
-        const reRegisterButton = document.getElementById('re-register-button');
 
         // Перевірка реєстрації
         function checkRegistration() {
@@ -144,7 +140,6 @@
             if (isRegistered) {
                 registerButton.style.display = 'none';
                 buttonContainer.style.display = 'flex';
-                reRegisterButton.style.display = 'inline-block'; // Показуємо кнопку для перереєстрації
             }
         }
 
@@ -154,16 +149,25 @@
             formContainer.style.display = 'flex';
         });
 
-        // Перереєстрація
-        function reRegister() {
-            // Очищаємо дані і повертаємось до початкового стану
-            localStorage.removeItem('isRegistered');
-            localStorage.removeItem('userData');
+        // Підтвердити реєстрацію
+        submitButton.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const email = emailInput.value.trim();
+
+            if (!name || !phone || !email) {
+                alert('Будь ласка, заповніть всі поля!');
+                return;
+            }
+
+            // Зберегти дані користувача
+            localStorage.setItem('isRegistered', true);
+            localStorage.setItem('userData', JSON.stringify({ name, phone, email }));
+
+            // Показати кнопки
             formContainer.style.display = 'none';
-            buttonContainer.style.display = 'none';
-            registerButton.style.display = 'block';
-            reRegisterButton.style.display = 'none';
-        }
+            buttonContainer.style.display = 'flex';
+        });
 
         // Дії кнопок
         function openFAQ() {
@@ -177,6 +181,7 @@
         // Ініціалізація
         checkRegistration();
     </script>
+
 
 </body>
 </html>
