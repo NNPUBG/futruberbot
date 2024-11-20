@@ -85,6 +85,45 @@
         <button class="button" onclick="orderDrawing()">Реєстрація для подальшого користування</button>
     </div>
 
+   <script>
+    // URL сервера, що обробляє дані (потрібно замінити на реальний)
+    const serverUrl = "http://127.0.0.1:8000/register";
+
+    // Підтвердити реєстрацію
+    submitButton.addEventListener('click', async () => {
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const email = emailInput.value.trim();
+
+        if (!name || !phone || !email) {
+            alert('Будь ласка, заповніть всі поля!');
+            return;
+        }
+
+        try {
+            // Відправлення даних на сервер
+            const response = await fetch(serverUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, phone, email }),
+            });
+
+            if (response.ok) {
+                alert('Реєстрація успішна!');
+                localStorage.setItem('isRegistered', true);
+                localStorage.setItem('userData', JSON.stringify({ name, phone, email }));
+                formContainer.style.display = 'none';
+                buttonContainer.style.display = 'flex';
+            } else {
+                alert('Помилка реєстрації, спробуйте пізніше.');
+            }
+        } catch (error) {
+            console.error('Помилка при відправленні даних:', error);
+            alert('Не вдалося зв’язатися із сервером.');
+        }
+    });
+    </script>
+
     <script>
         // Елементи
         const registerButton = document.getElementById('register-button');
@@ -142,5 +181,7 @@
         // Ініціалізація
         checkRegistration();
     </script>
+
+
 </body>
 </html>
